@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+
+  server:
+    build:
+      context: ./server
+    ports:
+      - 5000:6543
+    devices:
+      - "/dev/video0:/dev/video0"
+    volumes:
+      - ./server/src:/app
