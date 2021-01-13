@@ -5,8 +5,9 @@ services:
   server:
     build:
       context: ./server
-    ports:
-      - 6543:6543
+
+    network_mode: "host"
+
     devices:
       - "/dev/video0:/dev/video0"
     volumes:
