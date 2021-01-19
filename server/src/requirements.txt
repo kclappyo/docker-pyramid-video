@@ -1,4 +1,3 @@
-pyramid==1.10
-pyramid-jinja2==2.7
+pyramid==1.10.5
+pyramid-jinja2==2.8
 opencv-python-headless
-djitellopy

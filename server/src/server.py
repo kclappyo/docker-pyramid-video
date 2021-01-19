@@ -3,21 +3,20 @@ from pyramid.config import Configurator
 from pyramid.renderers import render_to_response
 from pyramid.response import Response
 
-from camera import VideoCamera
-from dronecamera import DroneCamera
+from easytello import tello
+
+drone = tello.Tello()
+drone.streamon()
 
 def index(req):
   return render_to_response('index.html', [], request=req)
 
-def get_frame(cam):
-  while True:
-    yield (b'--frame\r\n'b'Content-Type: image/jpeg\r\n\r\n' + cam.get_frame() + b'\r\n\r\n')
-
 def video_stream(req):
-  # return Response(app_iter=get_frame(VideoCamera()), content_type='multipart/x-mixed-replace; boundary=frame')
-  return Response(app_iter=get_frame(DroneCamera()), content_type='multipart/x-mixed-replace; boundary=frame')
+  while (True):
+      return Response(app_iter=drone._video_thread(), content_type='multipart/x-mixed-replace; boundary=frame')
 
 if __name__ == '__main__':
+
   with Configurator() as config:
     config.include('pyramid_jinja2')
     config.add_jinja2_renderer('.html')

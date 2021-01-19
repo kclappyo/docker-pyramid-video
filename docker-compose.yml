@@ -5,10 +5,10 @@ services:
   server:
     build:
       context: ./server
-
-    network_mode: "host"
-
-    devices:
-      - "/dev/video0:/dev/video0"
+    ports:
+      - 6543:6543
+      - 11111:11111/udp
+      - 8889:8889/udp
+      - 8890:8890/udp
     volumes:
       - ./server/src:/app
